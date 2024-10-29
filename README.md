@@ -2,7 +2,7 @@
 
 ### Nhóm 2:
 - Trần Văn Anh
-- Vguyễn Việt Anh
+- Nguyễn Việt Anh
 - Dư Ngọc Ánh
 - Đặng Thọ Chiến
 
