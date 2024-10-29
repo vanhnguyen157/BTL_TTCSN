@@ -1,0 +1,268 @@
+﻿<Page x:Class="HRMana.Main.View.Personnel.CreateNewPersonnelPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HRMana.Main.View.Personnel"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"    
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:uc="clr-namespace:HRMana.Main.UserControls"
+      mc:Ignorable="d" Background="White"
+      DataContext="{StaticResource createPersonnelVM}"
+      x:Name="createPersonnelPage" FontSize="14"
+      Title="CreateNewPersonnelPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" CommandParameter="{Binding ElementName=createPersonnelPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Page.Resources>
+        <Storyboard x:Key="CreatePersonnelWindowNotification">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Notification_Grid_createPsnel">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="78"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="170"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Panel.ZIndex="10" x:Name="Notification_Grid_createPsnel" HorizontalAlignment="Center" 
+              Margin="0,-161,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="61" Width="560">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Rectangle Height="59" Stroke="Black" VerticalAlignment="Center" 
+                        RadiusX="8.1" RadiusY="8.1" Fill="{Binding Fill}"/>
+            <TextBlock Foreground="Black" FontSize="15" HorizontalAlignment="Center" 
+                        Height="22" TextWrapping="Wrap" Text="{Binding Message}" VerticalAlignment="Center" Width="420"/>
+            <Button Command="{Binding HideNotifyCommand}" HorizontalAlignment="Left" Height="24" Margin="515,0,0,0" 
+                    VerticalAlignment="Center" Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#DD080808" Padding="4,4,4,4">
+                <materialDesign:PackIcon Kind="Close" />
+            </Button>
+            <!--<Image HorizontalAlignment="Left" Height="33" Margin="16,6,0,0" VerticalAlignment="Top" Width="35" Source="/Assets/Images/successIcon.png"/>-->
+        </Grid>
+
+        <uc:LableTopUserControl Title="THÊM MỚI NHÂN SỰ"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Margin="10">
+                <Border BorderBrush="Black" BorderThickness="2" Height="241" HorizontalAlignment="Left" 
+                        Margin="25,16,10,0" Width="215" VerticalAlignment="Top" x:Name="bder_ImageValidate">
+                    <Image Source="{Binding AnhThe}" HorizontalAlignment="Left" Height="233" VerticalAlignment="Top" Width="208" Stretch="Fill"/>
+                </Border>
+                <Button Command="{Binding ChooseImageCommand}" HorizontalAlignment="Left" Margin="25,259,0,0" 
+                        VerticalAlignment="Top" Width="215" Height="36" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ImagePlusOutline" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                            <TextBlock Text="Thêm ảnh"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Grid.Row="0" Margin="10,16,25,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="0,10,0,0" 
+                                   TextWrapping="Wrap" Text="Tên nhân viên" VerticalAlignment="Top" Width="92"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" TextChanged="Format_HoTen_TextChanged" 
+                                 Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                 HorizontalAlignment="Left" Margin="10,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
+                                 Width="221" x:Name="txt_TenNhanVien"/>
+                        <!--<TextBlock Text="Tên nhân viên không được bỏ trống" Grid.Row="0" Grid.Column="1"
+                                   FontSize="10" Foreground="Red" HorizontalAlignment="Left" Margin="10,34,0,0" 
+                                   VerticalAlignment="Top" x:Name="txtbl_ValidateTNV"/>-->
+
+                        <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Margin="18,10,0,0" TextWrapping="Wrap" 
+                                   Text="Giới tính" VerticalAlignment="Top"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3">
+                            <RadioButton x:Name="rdbNam" IsChecked="{Binding Nam_Checked}" Content="Nam" 
+                                         HorizontalAlignment="Left" Margin="15,5,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="rdbNu" IsChecked="{Binding Nu_Checked}" Content="Nữ" 
+                                         HorizontalAlignment="Left" Margin="15,5,0,0" VerticalAlignment="Top"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Margin="10,5,20,0" 
+                                   TextWrapping="Wrap" Text="Nơi ở hiện tại" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="0" Grid.Column="5" TextChanged="UpperCaseFirstChar" Grid.ColumnSpan="3" 
+                                 Text="{Binding NoiOHienTai, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                 HorizontalAlignment="Left" Margin="10,5,0,0" 
+                                 TextWrapping="Wrap" VerticalAlignment="Top" Width="276"/>
+                        
+
+                        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="10,5,10,0" 
+                                   TextWrapping="Wrap" Text="Quê quán" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="1" Grid.Column="3" TextChanged="UpperCaseFirstChar" Grid.ColumnSpan="3"
+                                 Text="{Binding QueQuan, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                 HorizontalAlignment="Left" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390"/>
+                        <!--<TextBlock Text="Quê quán không được bỏ trống" VerticalAlignment="Top" Foreground="Red" 
+                                FontSize="10" Margin="10,38,20,0" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"/>-->
+                        
+                        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="10,5,0,0" TextWrapping="Wrap" 
+                                   Text="Ngày sinh" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" 
+                                 Text="{Binding NgaySinh, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                 HorizontalAlignment="Left" x:Name="txt_Birthday" ToolTip="Định dạng ngày sinh phải là dd/MM/yyyy"
+                                 Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                        <!--<TextBlock Grid.Row="1" Grid.Column="1" Text="Định dạng ngày tháng năm không đúng" 
+                                   x:Name="txtbl_BirthdayValidate" HorizontalAlignment="Left" FontSize="10" 
+                                   Margin="10,38,0,10" Height="20" VerticalAlignment="Top"/>-->
+
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="10,5,0,0" 
+                                   TextWrapping="Wrap" Text="Điện thoại" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DienThoai}" x:Name="txt_PhoneNumber"
+                                 TextChanged="txt_PhoneNumber_TextChanged" HorizontalAlignment="Left" 
+                                 Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="Số điện thoại chỉ có 10 chữ số" 
+                                   x:Name="txtbl_PhoneErrorValidate" Margin="10,39,0,5" FontSize="10" 
+                                   Width="200" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" 
+                                   Margin="18,4,0,0" TextWrapping="Wrap" Text="Tôn giáo" VerticalAlignment="Top"/>
+                        <ComboBox Grid.Row="2" Grid.Column="3" ItemsSource="{Binding ListTonGiao}" DisplayMemberPath="tenTonGiao" 
+                                      SelectedItem="{Binding SelectedTonGiao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                      HorizontalAlignment="Stretch" Margin="10,5,20,0" VerticalAlignment="Top" />
+                        <!--<TextBlock Text="Tôn giáo không được bỏ trống" Margin="10,38,20,0" 
+                                   VerticalAlignment="Top" Foreground="Red" FontSize="10" Grid.Row="2" Grid.Column="3"/>-->
+
+                        <TextBlock Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" Margin="10,5,0,0" 
+                                   TextWrapping="Wrap" Text="Dân tộc" VerticalAlignment="Top"/>
+                        <ComboBox Grid.Row="2" Grid.Column="5" ItemsSource="{Binding ListDanToc}" DisplayMemberPath="tenDanToc" 
+                                      SelectedItem="{Binding SelectedDanToc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                      HorizontalAlignment="Stretch" Margin="10,5,20,0" VerticalAlignment="Top"/>
+                        <!--<TextBlock Text="Dân tộc không được bỏ trống" VerticalAlignment="Top" Foreground="Red" 
+                                   FontSize="10" Margin="10,38,20,0" Grid.Row="2" Grid.Column="5"/>-->
+
+                        <TextBlock Grid.Row="2" Grid.Column="6" HorizontalAlignment="Left" Margin="10,5,10,0" 
+                                   TextWrapping="Wrap" Text="CCCD" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="2" Grid.Column="7" Text="{Binding Cccd, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" 
+                                 Margin="10,5,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168"/>
+                        <!--<TextBlock Text="CCCD không được bỏ trống" VerticalAlignment="Top" Foreground="Red" 
+                                FontSize="10" Margin="10,38,20,0" Grid.Row="2" Grid.Column="7"/>-->
+
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Row="1" Margin="10,10,25,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock HorizontalAlignment="Left" Margin="10,14,10,10" TextWrapping="Wrap" Text="Trình độ học vấn" VerticalAlignment="Top"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding ListTrinhDo}" DisplayMemberPath="tenTrinhDo" 
+                                      SelectedItem="{Binding SelectedTrinhDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                      Margin="10,10,10,0" VerticalAlignment="Top"></ComboBox>
+                        <!--<TextBlock Text="Trình độ học vấn không được bỏ trống" VerticalAlignment="Top" Foreground="Red" 
+                                    FontSize="10" Margin="10,43,20,0" Grid.Row="0" Grid.Column="1"/>-->
+
+                        <TextBlock Grid.Row="0" Grid.Column="2" Margin="10,10,10,10" TextWrapping="Wrap" Text="Chuyên môn" />
+                        <ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding ListChuyenMon}" DisplayMemberPath="tenChuyenMon" 
+                                      SelectedItem="{Binding SelectedChuyenMon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                      Margin="10,10,10,0" VerticalAlignment="Top"/>
+                        <!--<TextBlock Text="Chuyên môn không được bỏ trống" VerticalAlignment="Top" Foreground="Red" 
+                                FontSize="10" Margin="10,43,20,0" Grid.Row="0" Grid.Column="3"/>-->
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="10" 
+                                   TextWrapping="Wrap" Text="Chức vụ"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListChucVu}" DisplayMemberPath="tenChucVu" 
+                                  SelectedItem="{Binding SelectedChucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                  Margin="10,10,104,0" Grid.ColumnSpan="2" VerticalAlignment="Top"/>
+                        <!--<TextBlock Text="Chức vụ không được bỏ trống" VerticalAlignment="Top" Foreground="Red" 
+                                    FontSize="10" Margin="10,43,20,0" Grid.Row="1" Grid.Column="1"/>-->
+
+                        <TextBlock Grid.Row="1" Grid.Column="2" Margin="10,10" TextWrapping="Wrap" Text="Phòng ban"/>
+                        <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding ListPhongBan}" DisplayMemberPath="tenPhong" 
+                                      SelectedItem="{Binding SelectedPhongBan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                  Margin="10,10,10,0" VerticalAlignment="Top"/>
+                        <!--<TextBlock Text="Phòng ban không được bỏ trống" VerticalAlignment="Top" Foreground="Red" 
+                                    FontSize="10" Margin="10,43,20,0" Grid.Row="1" Grid.Column="3"/>-->
+                        
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="10,14" TextWrapping="Wrap" Text="Mã hồ sơ" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding MaHoSo}" Margin="10,11,0,0" 
+                                 TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Margin="10,14" 
+                                   TextWrapping="Wrap" Text="Mã hợp đồng" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding MaHopDong}" Margin="10" 
+                                 TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+
+                        <!--<TextBlock HorizontalAlignment="Left" Margin="666,197,0,0" TextWrapping="Wrap" Text="Bậc lương" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding ListBacLuong}" SelectedItem="{Binding SelectedBacLuong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="786,190,0,0" VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.5,0.5"/>-->
+
+                    </Grid>
+                </GroupBox>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10">
+                    <Button Command="{Binding CreateNewCommand}" x:Name="btn_CreateNew" 
+                            HorizontalAlignment="Left" Margin="255,10,10,10" VerticalAlignment="Top" RenderTransformOrigin="-0.266,0.773" Width="160" Height="40">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
+                                <TextBlock Text="Thêm mới"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="155,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.266,0.773" Width="160" Height="40">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Hủy"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
